@@ -1,6 +1,6 @@
-from pyspark import sql, SparkConf, SparkContext
 import pyspark
 import os
+from pyspark import sql, SparkConf, SparkContext
 
 conf = SparkConf().setAppName("Read_CSV")
 sc = SparkContext(conf=conf)

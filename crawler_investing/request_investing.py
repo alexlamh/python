@@ -1,16 +1,11 @@
 import requests
 import sys
-from slacker import Slacker
 import datetime as date
-import boto3
 import pytz
 
 USD = 'https://m.investing.com/currencies/usd-brl'
 EUR = 'https://m.investing.com/currencies/eur-brl'
 HEADER = {'User-Agent':'Mozilla/5.0'}
-
-SLACK_TOKEN = '#'
-SLACK_CHANNEL = '#random'
 
 #-----------datetime------------------------
 tz = pytz.timezone('America/Sao_Paulo')
@@ -47,57 +42,17 @@ def currency():
 
 
 def txt():
-    f = open('/home/ec2-user/alex/' + filename, 'a')
+    f = open('/home/lin/Documents/' + filename, 'a')
     f.write(cot + '\n')
 
 
-def logfile():
-    f = open('/home/ec2-user/alex/' + filelog, 'a')
-    f.write(log + '\n')
-    print(log)
-
-
-def s3():
-    session = boto3.Session(
-        aws_access_key_id='#',
-        aws_secret_access_key='#',
-    )
-    s3 = session.resource('s3')
-    data = open('/home/ec2-user/alex/{}'.format(filename), 'rb')
-    s3.Bucket('s3.datalab-fiap-2018').put_object(Key='Desafio/Alex/{}'.format(filename), Body=data)
-    dat = open('/home/ec2-user/alex/{}'.format(filelog), 'rb')
-    s3.Bucket('s3.datalab-fiap-2018').put_object(Key='Desafio/Alex/{}'.format(filelog), Body=dat)
-
-
-def slack():
-    slackClient = Slacker(SLACK_TOKEN)
-    slackClient.chat.post_message(SLACK_CHANNEL, cot)
-
-
-def check_hour():
-    if initial_time.strftime('%M') == '00':
-        s3()
-        slack()
-        log_act3 = 'Upload no S3 com sucesso e mensagem enviado no Slack'
-    else:
-        log_act3 = ''
-    return log_act3
-
-
 if __name__ == '__main__':
-    parameter(sys.argv[1])
-    currency()
-    log_act1 = 'Capturando cotacao'
-    txt()
-    log_act2 = 'Gravando em txt'
-    log_act3 = check_hour()
-    end_time = date.datetime.now(tz)
-    duration = end_time - initial_time
-    log = date_convert(initial_time), log_act1, log_act2, log_act3, date_convert(end_time), str(duration.total_seconds())
-    log = ', '.join(log)
-    logfile()
     try:
-        pass
+        parameter(sys.argv[1])
+        currency()
+        log_act1 = 'Capturando cotacao'
+        txt()
+        log_act2 = 'Gravando em txt'
     except:
         print('-----------------------------------------------------------\n'
               'Para capturar a cotacao desejada, insira um dos argumentos:\n'
