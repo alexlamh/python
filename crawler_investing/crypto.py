@@ -33,3 +33,5 @@ if __name__ == '__main__':
             if not file_exists:
                 writer.writeheader()
             writer.writerow({'rank': i+1, 'coin': name, 'usd': coin, 'timestamp': timestamp()})
+
+    h.quit()
