@@ -1,44 +1,31 @@
-import Helper.Helper as h
+import helpers.selenium_handler as h
 import csv
-import datetime
-import os
+import datetime as date
+import pytz
 
-URLCRIPTO = 'https://m.investing.com/crypto/'
-URLDOLAR = 'https://m.investing.com/currencies/usd-brl'
-h.get(URLCRIPTO)
+URL = 'https://m.investing.com/crypto/'
 
-hora = datetime.datetime.now().strftime("%d-%m-%Y %H:%M")
-lista = h.listxpath('/html/body/div[1]/div[1]/section/div/div/div/table/tbody/tr')
-tamanholista = len(lista)
+def timestamp():
+    tz = pytz.timezone('America/Sao_Paulo')
+    timestamp = date.datetime.now(tz).strftime("%Y-%m-%d %H:%M")
+    return timestamp
 
-for i in range(0,tamanholista):
-    rank = h.xpath('/html/body/div[1]/div[1]/section/div/div/div/table/tbody/tr['+str(i+1)+']/td[1]').text
-    nomeMoeda = h.xpath('/html/body/div[1]/div[1]/section/div/div/div/table/tbody/tr['+str(i+1)+']/td[2]').text
-    valor = str(h.xpath('/html/body/div[1]/div[1]/section/div/div/div/table/tbody/tr['+str(i+1)+']/td[3]').text)
-    valor = valor.replace(',','')
-
-    file_exists = os.path.isfile("Cripto.csv")
-    with open("Cripto.csv", 'a', newline='') as saida:
-        headers = ['Rank', 'NomeMoeda', 'Valor-USD','Hora']
-        writer = csv.DictWriter(saida, delimiter=';', lineterminator='\n', fieldnames=headers)
-        if not file_exists:
-            writer.writeheader()
-        writer.writerow({'Rank': rank, 'NomeMoeda': nomeMoeda, 'Valor-USD': valor, 'Hora': hora})
+def csv_write(param1, param2, param3, param4):
+    with open('./downloads/crypto2.csv', 'a', newline='') as saida:
+        escrever = csv.writer(saida, delimiter=';')
+        escrever.writerow([param1, param2, param3, param4])
+    return print('{} gravado'.format(param2))
 
 
+if __name__ == '__main__':
+    h.get(URL)
 
-h.get(URLDOLAR)
-cotacaoDolar = str(h.xpath('//*[@id="siteWrapper"]/div[1]/section[2]/div[4]/div[2]/span[1]').text)
+    coin_rank = h.xpathList('/html/body/div[1]/div[1]/section/div/div/div/table/tbody/tr/td[1]')
+    coin_name = h.xpathList('/html/body/div[1]/div[1]/section/div/div/div/table/tbody/tr/td[2]')
+    coin_price = h.xpathList('/html/body/div[1]/div[1]/section/div/div/div/table/tbody/tr/td[3]')
 
-
-file_exists = os.path.isfile("Cotacao.csv")
-with open("Cotacao.csv", 'a', newline='') as saida:
-    headers = ['Moeda', 'Cotacao','Hora']
-    writer = csv.DictWriter(saida, delimiter=';', lineterminator='\n', fieldnames=headers)
-    if not file_exists:
-        writer.writeheader()
-    writer.writerow({'Moeda': 'USD-BRL', 'Cotacao': cotacaoDolar,'Hora': hora})
-
+    for i in coin_price:
+        print(i.text)
 
 
 

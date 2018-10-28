@@ -1,3 +1,4 @@
+import selenium
 from selenium import webdriver
 
 drv = webdriver.Chrome('/home/lin/python/chromedriver')
