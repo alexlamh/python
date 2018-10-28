@@ -1,8 +1,8 @@
-import selenium
 from selenium import webdriver
 
-drv = webdriver.Chrome('/home/lin/python/chromedriver')
-# drv = webdriver.PhantomJS('D:\Dropbox\python\helpers\phantomjs.exe')
+options = webdriver.ChromeOptions()
+options.add_argument('headless')
+drv = webdriver.Chrome(executable_path='/home/lin/python/chromedriver', chrome_options=options)
 
 def get(url):
     return drv.get(url)
@@ -27,3 +27,6 @@ def xpath(param):
 
 def xpathList(param):
     return drv.find_elements_by_xpath(param)
+
+def quit():
+    return drv.quit()

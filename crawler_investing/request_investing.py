@@ -11,7 +11,7 @@ HEADER = {'User-Agent':'Mozilla/5.0'}
 tz = pytz.timezone('America/Sao_Paulo')
 initial_time = date.datetime.now(tz)
 def date_convert(var):
-    return var.strftime("%Y-%m-%d %H:%M:%S")
+    return var.strftime("%Y-%m-%d %H:%M")
 timestamp = date_convert(initial_time)
 #-------------------------------------------
 
