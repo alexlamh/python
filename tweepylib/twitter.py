@@ -24,6 +24,7 @@ def convert_sp(param):
     return data
 
 
+# Converte o twitter status object para json
 def convert_json(username, qtd):
     for tweet in tweepy.Cursor(api.user_timeline, screen_name=username, tweet_mode='extended').items(qtd):
         print(json.dumps(tweet._json))
@@ -71,5 +72,5 @@ qtd = 1
 path = '/home/lin/Documents/tweepy/{}.csv'.format(username)
 if __name__ == '__main__':
     # get_search(search, qtd)
-    get_all_tweets(username, qtd)
-    # convert_json(username, qtd)
+    # get_all_tweets(username, qtd)
+    convert_json(username, qtd)
