@@ -24,7 +24,7 @@ def convert_sp(param):
     return data
 
 
-# Converte o twitter status object para json
+# Converte o Twitter Status Object para JSON
 def convert_json(username, qtd):
     for tweet in tweepy.Cursor(api.user_timeline, screen_name=username, tweet_mode='extended').items(qtd):
         print(json.dumps(tweet._json))
@@ -65,6 +65,7 @@ def get_search(search, qtd):
         print(convert_sp(tweet.created_at))
         print(tweet.full_text)
         print('---')
+
 
 username = 'infomoney'
 search = '#masterchef'

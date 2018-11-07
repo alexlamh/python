@@ -1,7 +1,7 @@
 from selenium import webdriver
 
 options = webdriver.ChromeOptions()
-options.add_argument('headless')
+# options.add_argument('headless')
 drv = webdriver.Chrome(executable_path='/home/lin/python/chromedriver', chrome_options=options)
 
 def get(url):
