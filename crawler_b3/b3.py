@@ -2,14 +2,20 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import csv
+from datetime import date, timedelta
 
-path = '/home/lin/Documents/b3_scrap/b3_scrap.csv'
+today = date.today().strftime('%d/%m/%Y')
+yesterday = date.today() - timedelta(1)
+yesterday = yesterday.strftime('%d/%m/%Y')
+
+path = '/home/lin/Documents/b3_scrap/b3.csv'
 
 URL = 'http://www2.bmf.com.br/pages/portal/bmfbovespa/lumis/lum-retroativo-por-periodo-ptBR.asp'
 HEADER = {'User-Agent':'Mozilla/5.0'}
 
-dataInicio = '01/01/2018'
-dataFim = '31/12/2018'
+dataInicio = yesterday
+dataFim = today
+
 r = requests.post(URL, data={'txtDataInicio': dataInicio, 'txtDataFim': dataFim}).text
 
 soup = BeautifulSoup(r)

@@ -69,9 +69,9 @@ def get_search(search, qtd):
 
 username = 'infomoney'
 search = '#masterchef'
-qtd = 1
+qtd = 200
 path = '/home/lin/Documents/tweepy/{}.csv'.format(username)
 if __name__ == '__main__':
     # get_search(search, qtd)
-    # get_all_tweets(username, qtd)
-    convert_json(username, qtd)
+    get_all_tweets(username, qtd)
+    # convert_json(username, qtd)
