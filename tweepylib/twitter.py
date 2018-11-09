@@ -24,10 +24,17 @@ def convert_sp(param):
     return data
 
 
+nomes = ["@uoleconomia","@EstadaoEconomia"]
+
 # Converte o Twitter Status Object para JSON
 def convert_json(username, qtd):
-    for tweet in tweepy.Cursor(api.user_timeline, screen_name=username, tweet_mode='extended').items(qtd):
-        print(json.dumps(tweet._json))
+    file = 'b3.json'
+    for tweet in tweepy.Cursor(api.user_timeline, screen_name='b3_oficial', tweet_mode='extended').items(qtd):
+        x = tweet._json
+        x = json.dumps(x, ensure_ascii=False)
+        x = x.replace('\\\"',"'")
+        f = open('/home/lin/Documents/tweepy/{}'.format(file), 'a')
+        f.write(x + '\n')
 
 
 # Pegar tweets por usuário (max: 3200 tweets)
@@ -69,9 +76,10 @@ def get_search(search, qtd):
 
 username = 'infomoney'
 search = '#masterchef'
-qtd = 200
+qtd =4000
 path = '/home/lin/Documents/tweepy/{}.csv'.format(username)
+
 if __name__ == '__main__':
     # get_search(search, qtd)
-    get_all_tweets(username, qtd)
-    # convert_json(username, qtd)
+    # get_all_tweets(username, qtd)
+    convert_json(username, qtd)
