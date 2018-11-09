@@ -9,5 +9,5 @@ Projetos de treinamento que efetuei no datalab.
  - discordBot: utilizando a lib discord, um bot para enviar mensagem por comandos.
  - estudos: alguns arquivos de estudo.
  - pandas: utilizando a lib pandas para estudo.
- - tweepylib: utilizando a lib pandas para estudo.
+ - tweepylib: utilizando a lib tweepy para capturar tweets para análise.
  
