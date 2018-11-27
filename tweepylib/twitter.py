@@ -28,8 +28,8 @@ nomes = ["@uoleconomia","@EstadaoEconomia"]
 
 # Converte o Twitter Status Object para JSON
 def convert_json(username, qtd):
-    file = 'b3.json'
-    for tweet in tweepy.Cursor(api.user_timeline, screen_name='b3_oficial', tweet_mode='extended').items(qtd):
+    file = '{}.json'.format(username)
+    for tweet in tweepy.Cursor(api.user_timeline, screen_name=username, tweet_mode='extended').items(qtd):
         x = tweet._json
         x = json.dumps(x, ensure_ascii=False)
         x = x.replace('\\\"',"'")
@@ -76,7 +76,7 @@ def get_search(search, qtd):
 
 username = 'infomoney'
 search = '#masterchef'
-qtd =4000
+qtd =1
 path = '/home/lin/Documents/tweepy/{}.csv'.format(username)
 
 if __name__ == '__main__':

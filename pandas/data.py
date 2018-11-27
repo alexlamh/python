@@ -10,8 +10,8 @@ def file_size(file_path):
 
 if __name__  == "__main__":
 
-    file_path = 'test.csv'
-    print(file_size(file_path))
+    # file_path = 'test.csv'
+    # print(file_size(file_path))
 
     df = pd.read_csv('https://bit.ly/drinksbycountry')
 

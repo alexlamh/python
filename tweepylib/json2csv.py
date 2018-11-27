@@ -1,6 +1,7 @@
 from pandas.io.json import json_normalize
 import json
 import os
+import re
 
 def flatten_json(y):
     out = {}
@@ -20,7 +21,8 @@ def flatten_json(y):
     flatten(y)
     return out
 
-path = '/home/lin/Documents/tweepy/b3.json'
+file = 'infomoney'
+path = '/home/lin/Documents/tweepy/{}.json'.format(file)
 f = open(path,"r")
 contents = f.read()
 contents = contents.split('\n')[:-1]
@@ -35,15 +37,16 @@ for row in range(0,len(contents)):
         flat = flatten_json(data)
 
     print(json_normalize(flat))
-    normalized_df = json_normalize(flat)
+    df = json_normalize(flat)
+    df.drop(df.columns.difference(['created_at', 'id', 'user_name', 'user_followers_count', 'favorite_count', 'retweet_count', 'full_text']), 1, inplace=True)
 
     # Escrever em CSV
-    csv = '/home/lin/Documents/tweepy/b3.csv'
+    csv = '/home/lin/Documents/tweepy/{}.csv'.format(file)
     file_exists = os.path.isfile(csv)
     with open(csv, 'a') as f:
         if not file_exists:
-            normalized_df.to_csv(f, sep=';', index=False)
+            df.to_csv(f, sep=';', index=False)
         else:
-            normalized_df.to_csv(f, sep=';', header=False, index=False)
+            df.to_csv(f, sep=';', header=False, index=False)
 
 os.remove('temp.json')
